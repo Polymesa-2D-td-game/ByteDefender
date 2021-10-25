@@ -30,7 +30,8 @@ public class TowerShopGUI : MonoBehaviour
             ReleaseTower();
         }
     }
-
+    
+    //Creates a specified tower
     public void CreateTower(int towerIndex)
     {
         GameObject newTower = Instantiate(towers[towerIndex]);
@@ -38,6 +39,8 @@ public class TowerShopGUI : MonoBehaviour
         target = newTower;
     }
 
+
+    //Returns the Mouse Position in World Space
     private Vector2 GetMousePosition()
     {
         Vector2 mousePos = Input.mousePosition;
@@ -46,6 +49,7 @@ public class TowerShopGUI : MonoBehaviour
         return mousePosToWorld;
     }
 
+    //Moves the selected tower with Mouse
     private void SnapTowerToMouse(GameObject tower)
     {
         if(tower)
@@ -54,12 +58,14 @@ public class TowerShopGUI : MonoBehaviour
         }
     }
 
+    //Place Tower
     private void ReleaseTower()
     {
         ChangeTowerSize(target, 1);
         target = null;
     }
 
+    //Changes the Tower Size (Used when picked up/down)
     private void ChangeTowerSize(GameObject tower, float size)
     {
         if(tower)
@@ -67,4 +73,25 @@ public class TowerShopGUI : MonoBehaviour
             tower.transform.localScale = new Vector2(size, size);
         }
     } 
+
+    public void ToggleSpeed()
+    {
+        if(Time.timeScale == 1f)
+        {
+            Time.timeScale = 2.5f;
+            return;
+        }
+        Time.timeScale = 1f;
+    }
+
+    public void ButtonAnimation(GameObject button)
+    {
+        ToggleSpeed();
+        if(Time.timeScale == 1)
+        {
+            button.GetComponent<Animator>().Play("Pressed");
+            return;
+        }
+        button.GetComponent<Animator>().Play("Selected");
+    }
 }
