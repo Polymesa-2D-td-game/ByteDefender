@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Spawner : MonoBehaviour
 {
@@ -23,6 +23,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] [Range(1, 20)] private int waveToStartSpawningZipped;
     [SerializeField] [Range(0f, 1f)] private float chanceToSpawnZippedIncrement;
 
+
     private int waveCount = 1;
     //Wave Power equals to enemies * hitPoints
     private int wavePower = 0;
@@ -33,24 +34,33 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnNextWave();
+        //SpawnNextWave();
+    }
+
+    public bool IsWaveRunning()
+    {
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        return enemies.Length > 0;
     }
 
     //Spawns The Next Wave
     public void SpawnNextWave()
     {
-        wavePower += startingPower;
-        (int currentPower, int enemiesToSpawn) = WaveIncrements(wavePower);
-        List<GameObject> enemies = EnemyIncrements(currentPower, enemiesToSpawn);
-        StartCoroutine(EnableWave(enemies));
-        waveCount++;
+        if(!IsWaveRunning())
+        {
+            wavePower += startingPower;
+            (int currentPower, int enemiesToSpawn) = WaveIncrements(wavePower);
+            List<GameObject> enemies = EnemyIncrements(currentPower, enemiesToSpawn);
+            StartCoroutine(EnableWave(enemies));
+            waveCount++;
+        }
     }
 
 
     //Prepares The Spawning (Spawn Chances and Enemies To Spawn)
     private (int,int) WaveIncrements(int currentPower)
     {
-        int enemiesToSpawn = Random.Range(waveCount, currentPower/waveCount);
+        int enemiesToSpawn = UnityEngine.Random.Range(waveCount, currentPower/waveCount);
         if (waveCount >= waveToStartSpawningCrypted)
         {
             chanceToSpawnCrypted += chanceToSpawnCryptedIncrement;
@@ -72,20 +82,22 @@ public class Spawner : MonoBehaviour
         for(int i =0; i < enemiesToSpawn; i++)
         {
             GameObject enemy = Instantiate(enemyPrefab, transform.position, transform.rotation) as GameObject;
+            //This is used to prevent block graphics stack on each other. This way the first to spawn is on top
             enemy.GetComponent<Enemy>().SetSortingLayer(orderInLayer);
             orderInLayer -= 2;
             enemy.GetComponent<Enemy>().HitPoints++;
             enemy.GetComponent<Enemy>().Speed = speed;
             enemy.GetComponent<Enemy>().Path = wayPoints;
-            if (chanceToSpawnCrypted >= Random.Range(0f, 1f))
+            if (chanceToSpawnCrypted >= UnityEngine.Random.Range(0f, 1f))
             {
                 enemy.GetComponent<Enemy>().EnemyType = 1;
             }
 
-            if (chanceToSpawnZipped >= Random.Range(0f, 1f))
+            if (chanceToSpawnZipped >= UnityEngine.Random.Range(0f, 1f))
             {
                 enemy.GetComponent<Enemy>().EnemyType = 2;
             }
+            enemy.GetComponent<Enemy>().UpdateStats();
             enemies.Add(enemy);
         }
         //Remove 1 power for each enemy spawned (because each enemy starts with 1 life)
@@ -93,7 +105,7 @@ public class Spawner : MonoBehaviour
         //Split remaining power randomly on enemies
         while (currentPower > 0)
         {
-            int index = Random.Range(0, enemies.Count);
+            int index = UnityEngine.Random.Range(0, enemies.Count);
             enemies[index].GetComponent<Enemy>().HitPoints++;
 
             if (enemies[index].GetComponent<Enemy>().EnemyType == 2)
@@ -113,7 +125,7 @@ public class Spawner : MonoBehaviour
         foreach(GameObject enemy in enemies)
         {
             enemy.GetComponent<Enemy>().StartMoving();
-            yield return new WaitForSeconds(Random.Range(minTimeBetweenInits, maxTimeBetweenInits));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(minTimeBetweenInits, maxTimeBetweenInits));
         }
     }
 }

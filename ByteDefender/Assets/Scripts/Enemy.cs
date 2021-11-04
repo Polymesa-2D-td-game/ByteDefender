@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Sprite[] enemySprites;
     [SerializeField] GameObject destroyEffect;
     [SerializeField] float spawnSpread = 0.3f;
+    [SerializeField] private int coinsOnDeath = 5;
 
     [SerializeField] [Range(0f, 1f)] private float timeBetweenInits;
 
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
     Type enemyType = Type.Normal;
     private int hitPoints;
     private float speed;
+    private float currentSpeed;
     private Transform[] path;
 
     private bool canMove = false;
@@ -57,12 +59,22 @@ public class Enemy : MonoBehaviour
     private int orderInLayer = 2;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         hitText.text = hitPoints.ToString();
         initHitPoints = hitPoints;
+        currentSpeed = speed;
         FormatType();
     }
+
+    public void UpdateStats()
+    {
+        hitText.text = hitPoints.ToString();
+        initHitPoints = hitPoints;
+        currentSpeed = speed;
+        FormatType();
+    }
+    
 
     public void SetSortingLayer(int order)
     {
@@ -99,12 +111,17 @@ public class Enemy : MonoBehaviour
     {
         if(canMove)
         {
-            transform.position = Vector2.MoveTowards(transform.position, Path[dirIndex].position, Speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, Path[dirIndex].position, currentSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, Path[dirIndex].position) <= 0.1f)
             {
                 if (dirIndex < Path.Length - 1)
                 {
                     dirIndex++;
+                }
+                else
+                {
+                    FindObjectOfType<Base>().TakeDamage(hitPoints);
+                    Destroy(gameObject);
                 }
             }
         }
@@ -122,6 +139,7 @@ public class Enemy : MonoBehaviour
         hitText.text = hitPoints.ToString();
         if (hitPoints <= 0)
         {
+            FindObjectOfType<TowerShopGUI>().AddCoins(coinsOnDeath);
             GameObject effect = Instantiate(destroyEffect, transform.position, transform.rotation);
             Destroy(effect, 0.5f);
             if(enemyType == Type.Zipped)
@@ -130,6 +148,30 @@ public class Enemy : MonoBehaviour
             }
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator TakeSlow(float slowRatio, float duration)
+    {
+        currentSpeed = speed - (speed * slowRatio);
+        yield return new WaitForSeconds(duration);
+        currentSpeed = speed;
+    }
+
+    public void SlowEnemy(float slowRatio, float duration)
+    {
+        StartCoroutine(TakeSlow(slowRatio, duration));
+    }
+
+    IEnumerator TakeStun(float stunDuration)
+    {
+        currentSpeed = 0f;
+        yield return new WaitForSeconds(stunDuration);
+        currentSpeed = speed;
+    }
+
+    public void StunEnemy(float duration)
+    {
+        StartCoroutine(TakeStun(duration));
     }
 
     private void ZipBehaviour()
@@ -145,13 +187,14 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < enemiesToSpawn; i++)
         {
             float randomSpread = Random.Range(-1f, 1f) * spawnSpread;
-            Vector2 randomPos = transform.position * randomSpread;
+            Vector2 randomPos = transform.position + new Vector3(randomSpread, randomSpread, 0);
             GameObject enemy = Instantiate(enemyPrefab, randomPos, transform.rotation) as GameObject;
             enemy.GetComponent<Enemy>().SetSortingLayer(orderInLayer);
             orderInLayer -= 2;
             enemy.GetComponent<Enemy>().HitPoints++;
             enemy.GetComponent<Enemy>().Speed = speed;
             enemy.GetComponent<Enemy>().Path = path;
+            enemy.GetComponent<Enemy>().UpdateStats();
             enemies.Add(enemy);
         }
 
