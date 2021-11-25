@@ -4,11 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Tower))]
 public class CoilGun : MonoBehaviour
-{
-    [SerializeField] GameObject projectilePrefab;
-    [SerializeField] int damage;
-    [SerializeField] float emmitForce;
-
+{ 
     private Tower tower;
     // Start is called before the first frame update
     private void Awake()
@@ -24,12 +20,12 @@ public class CoilGun : MonoBehaviour
             if(tower.GetTarget() && tower.IsEnabled())
             {
                 tower.LookAtTarget();
-                GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation) as GameObject;
-                projectile.GetComponent<CoilGunProjectile>().Damage = damage;
-                projectile.GetComponent<CoilGunProjectile>().EmmitForce = emmitForce;
+                GameObject projectile = Instantiate(tower.SpawnObject, tower.SpawnPoint.position, tower.SpawnPoint.rotation) as GameObject;
+                projectile.GetComponent<CoilGunProjectile>().Damage = tower.CurrentIntPower;
+                projectile.GetComponent<CoilGunProjectile>().EmmitForce = tower.EmmitForce;
                 projectile.GetComponent<CoilGunProjectile>().Target = tower.GetTarget();
             }
-            yield return new WaitForSeconds(1 / tower.Speed);
+            yield return new WaitForSeconds(1 / tower.CurrentSpeed);
         }
     }
 }

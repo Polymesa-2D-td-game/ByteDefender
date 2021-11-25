@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class ElectromagneticCannon : MonoBehaviour
 {
-    [SerializeField] GameObject projectilePrefab;
     [SerializeField] GameObject afterProjectilePrefab;
-    [SerializeField] int damage;
-    [SerializeField] float emmitForce;
+
     [SerializeField] float afterRange;
 
     private Tower tower;
@@ -25,14 +23,14 @@ public class ElectromagneticCannon : MonoBehaviour
             if (tower.GetTarget() && tower.IsEnabled())
             {
                 tower.LookAtTarget();
-                GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation) as GameObject;
-                projectile.GetComponent<ElectromagneticCannonProjectile>().Damage = damage;
-                projectile.GetComponent<ElectromagneticCannonProjectile>().EmmitForce = emmitForce;
+                GameObject projectile = Instantiate(tower.SpawnObject, tower.SpawnPoint.position, tower.SpawnPoint.rotation) as GameObject;
+                projectile.GetComponent<ElectromagneticCannonProjectile>().Damage = tower.CurrentIntPower;
+                projectile.GetComponent<ElectromagneticCannonProjectile>().EmmitForce = tower.EmmitForce;
                 projectile.GetComponent<ElectromagneticCannonProjectile>().Target = tower.GetTarget();
                 projectile.GetComponent<ElectromagneticCannonProjectile>().Range = afterRange;
                 projectile.GetComponent<ElectromagneticCannonProjectile>().afterHitAttack = afterProjectilePrefab;
             }
-            yield return new WaitForSeconds(1 / tower.Speed);
+            yield return new WaitForSeconds(1 / tower.CurrentSpeed);
         }
     }
 }

@@ -43,6 +43,11 @@ public class Spawner : MonoBehaviour
         return enemies.Length > 0;
     }
 
+    public Transform[] GetWayPoints()
+    {
+        return wayPoints;
+    }
+
     //Spawns The Next Wave
     public void SpawnNextWave()
     {
@@ -122,10 +127,34 @@ public class Spawner : MonoBehaviour
     //Begins the flow of incoming enemies
     IEnumerator EnableWave(List<GameObject> enemies)
     {
-        foreach(GameObject enemy in enemies)
+        FindObjectOfType<DestroyBullets>().DeleteAll();
+        DebuffAll();
+        foreach (GameObject enemy in enemies)
         {
             enemy.GetComponent<Enemy>().StartMoving();
             yield return new WaitForSeconds(UnityEngine.Random.Range(minTimeBetweenInits, maxTimeBetweenInits));
+        }
+    }
+
+    private static void DebuffAll()
+    {
+        Buffable[] buffableTowers = FindObjectsOfType<Buffable>();
+        foreach (Buffable buffable in buffableTowers)
+        {
+            buffable.Debuff();
+        }
+
+        PowerSupply[] powerSuplies = FindObjectsOfType<PowerSupply>();
+        foreach (PowerSupply powerSuply in powerSuplies)
+        {
+            powerSuply.BuffNearbyTowers();
+        }
+
+        Tower[] towers = FindObjectsOfType<Tower>();
+        foreach (Tower target in towers)
+        {
+            target.canDecript = false;
+            target.canUnzip = false;
         }
     }
 }

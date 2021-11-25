@@ -221,6 +221,7 @@ public class TowerShopGUI : MonoBehaviour
         if(!hit.collider && !IsPointerOverUIElement())
         {
             target.GetComponent<CircleCollider2D>().enabled = true;
+            target.GetComponent<Tower>().DebuffAll();
             ChangeTowerSize(target, 1);
             infoTarget = null;
             target = null;

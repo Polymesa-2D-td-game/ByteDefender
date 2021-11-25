@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
-
+using UnityEngine.Experimental.Rendering.Universal;
 // Cartoon FX  - (c) 2015 Jean Moreno
 
 // Decreases a light's intensity over time.
 
-[RequireComponent(typeof(Light))]
+[RequireComponent(typeof(Light2D))]
 public class CFX_LightIntensityFade : MonoBehaviour
 {
 	// Duration of the effect.
@@ -28,14 +28,14 @@ public class CFX_LightIntensityFade : MonoBehaviour
 	
 	void Start()
 	{
-		baseIntensity = GetComponent<Light>().intensity;
+		baseIntensity = GetComponent<Light2D>().intensity;
 	}
 	
 	void OnEnable()
 	{
 		p_lifetime = 0.0f;
 		p_delay = delay;
-		if(delay > 0) GetComponent<Light>().enabled = false;
+		if(delay > 0) GetComponent<Light2D>().enabled = false;
 	}
 	
 	void Update ()
@@ -45,14 +45,14 @@ public class CFX_LightIntensityFade : MonoBehaviour
 			p_delay -= Time.deltaTime;
 			if(p_delay <= 0)
 			{
-				GetComponent<Light>().enabled = true;
+				GetComponent<Light2D>().enabled = true;
 			}
 			return;
 		}
 		
 		if(p_lifetime/duration < 1.0f)
 		{
-			GetComponent<Light>().intensity = Mathf.Lerp(baseIntensity, finalIntensity, p_lifetime/duration);
+			GetComponent<Light2D>().intensity = Mathf.Lerp(baseIntensity, finalIntensity, p_lifetime/duration);
 			p_lifetime += Time.deltaTime;
 		}
 		else

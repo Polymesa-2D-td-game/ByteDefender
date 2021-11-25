@@ -152,9 +152,11 @@ public class Enemy : MonoBehaviour
 
     IEnumerator TakeSlow(float slowRatio, float duration)
     {
+        transform.Find("Slow_Effect").GetComponent<ParticleSystem>().Play();
         currentSpeed = speed - (speed * slowRatio);
         yield return new WaitForSeconds(duration);
         currentSpeed = speed;
+        transform.Find("Slow_Effect").GetComponent<ParticleSystem>().Stop();
     }
 
     public void SlowEnemy(float slowRatio, float duration)

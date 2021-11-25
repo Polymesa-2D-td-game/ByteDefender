@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Tower))]
 public class Resistor : MonoBehaviour
 {
-    [SerializeField] [Range(0, 1)] private float slowRatio = 0.2f;
-    [SerializeField] private float debuffTime = 0.5f;
 
     private Tower tower;
     // Start is called before the first frame update
@@ -25,10 +23,10 @@ public class Resistor : MonoBehaviour
             {
                 foreach (GameObject enemy in tower.GetTargetsInRange())
                 {
-                    enemy.GetComponent<Enemy>().SlowEnemy(slowRatio, debuffTime);
+                    enemy.GetComponent<Enemy>().SlowEnemy(tower.CurrentPower, tower.EmmitForce);
                 }
             }
-            yield return new WaitForSeconds(1/tower.Speed);
+            yield return new WaitForSeconds(1/tower.CurrentSpeed);
         }
     }
 
@@ -40,10 +38,10 @@ public class Resistor : MonoBehaviour
             {
                 foreach (GameObject enemy in tower.GetTargetsInRange())
                 {
-                    enemy.GetComponent<Enemy>().StunEnemy(debuffTime);
+                    enemy.GetComponent<Enemy>().StunEnemy(tower.EmmitForce);
                 }
             }  
-            yield return new WaitForSeconds(1 / tower.Speed);
+            yield return new WaitForSeconds(1 / tower.CurrentSpeed);
         }
     }
 }

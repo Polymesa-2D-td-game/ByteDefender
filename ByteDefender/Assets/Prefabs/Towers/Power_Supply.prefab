@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 3672488293930403334}
   - component: {fileID: 3672488293930403337}
   - component: {fileID: 3672488293930403332}
+  - component: {fileID: 7337913062217500355}
   m_Layer: 9
   m_Name: Power_Supply
   m_TagString: Tower
@@ -182,10 +183,15 @@ MonoBehaviour:
     m_Bits: 256
   towerName: Power Supply
   description: It is discharging frequently, to attack the selected enemy in range
-  powerCost: 150
+  powerCost: 900
+  spawnObject: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  power: 5
   range: 4
-  speed: 8
+  speed: 0.5
+  emmitForce: 5
   rangeCircle: {fileID: 3672488293890791548}
+  currentPower: 0
   target: {fileID: 0}
   towerFocus: 0
 --- !u!58 &3672488293930403332
@@ -204,3 +210,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.64
+--- !u!114 &7337913062217500355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3672488293930403336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ef9bc05cc421f46b1811ded63e4f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedBuff: 1
+  damageBuff: 1
+  rangeBuff: 1

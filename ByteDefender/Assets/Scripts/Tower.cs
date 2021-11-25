@@ -12,9 +12,23 @@ public class Tower : MonoBehaviour
     [SerializeField] private int powerCost;
 
     [Header("Base Stats")]
+    [SerializeField] private GameObject spawnObject;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private float power;
     [SerializeField] private float range;
     [SerializeField] private float speed;
+    [SerializeField] private float emmitForce;
     [SerializeField] private Transform rangeCircle;
+
+    [Header("Status")]
+    [SerializeField] private GameObject decryptEffect;
+    [SerializeField] private GameObject unzipEffect;
+    public float currentPower;
+    private float currentRange;
+    private float currentSpeed;
+
+    public bool canUnzip;
+    public bool canDecript;
 
     Vector3 startingScale;
     private Collider2D[] enemiesInRange = new Collider2D[1];
@@ -34,12 +48,47 @@ public class Tower : MonoBehaviour
     {
         startingScale = rangeCircle.transform.localScale;
         UpdateRangeIndicator();
+        InitializeStats();
+        
+    }
+
+    public void DebuffAll()
+    {
+        canDecript = false;
+        canUnzip = false;
+
+        Decoder[] decoders = FindObjectsOfType<Decoder>();
+        if(decoders.Length > 0)
+        {
+            foreach(Decoder decoder in decoders)
+            {
+                decoder.BuffTowers();
+            }
+        }
+
+        Buffable[] buffableTowers = FindObjectsOfType<Buffable>();
+        if(buffableTowers.Length > 0)
+        {
+            foreach (Buffable buffable in buffableTowers)
+            {
+                buffable.Debuff();
+            }
+        }
+        
+        PowerSupply[] powerSuplies = FindObjectsOfType<PowerSupply>();
+        if (powerSuplies.Length > 0)
+        {
+            foreach (PowerSupply powerSuply in powerSuplies)
+            {
+                powerSuply.BuffNearbyTowers();
+            }
+        }  
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(ShowStatus());
     }
 
     // Update is called once per frame
@@ -49,16 +98,34 @@ public class Tower : MonoBehaviour
         target = FindTarget();
     }
 
-    public void BuffStats(float rangeIncrement, float speedIncrement)
+    public void InitializeStats()
     {
-
+        currentPower = power;
+        currentRange = range;
+        currentSpeed = speed;
     }
 
     //Find all enemies in range
     private void DetectEnemies()
     {
         Collider2D[] checkSphere = Physics2D.OverlapCircleAll(transform.position, range, enemiesMask);
-        enemiesInRange = checkSphere;
+        
+        List<Collider2D> availableEnemies = new List<Collider2D>();
+
+        foreach(Collider2D col in checkSphere)
+        {
+            Enemy enemy = col.GetComponent<Enemy>();
+            if (enemy.EnemyType == 1 && !canDecript)
+            {
+                continue;
+            }
+            if (enemy.EnemyType == 2 && !canUnzip)
+            {
+                continue;
+            }
+            availableEnemies.Add(col);
+        }
+        enemiesInRange = availableEnemies.ToArray();
     }
 
     //Change the focus of this tower
@@ -168,16 +235,65 @@ public class Tower : MonoBehaviour
         return GetComponent<CircleCollider2D>().enabled;
     }
 
-    public float Range
+    public GameObject SpawnObject
     {
-        get { return range; }
-        set { range = value; }
+        get { return spawnObject; }
+        set { spawnObject = value; }
+    }
+
+    public Transform SpawnPoint
+    {
+        get { return spawnPoint; }
+        set { spawnPoint = value; }
+    }
+
+
+    public float EmmitForce
+    {
+        get { return emmitForce; }
+        set { emmitForce = value; }
+    }
+
+    public float Power
+    { 
+        get { return power; }
+        set { power = value; }
     }
 
     public float Speed
     {
         get { return speed; }
         set { speed = value; }
+    }
+
+    public float Range
+    {
+        get { return range; }
+        set { range = value; }
+    }
+
+    public float CurrentPower
+    {
+        get { return currentPower; }
+        set { currentPower = value; }
+    }
+
+    public int CurrentIntPower
+    {
+        get { return (int)currentPower; }
+        set { currentPower = value; }
+    }
+
+    public float CurrentRange
+    {
+        get { return currentRange; }
+        set { currentRange = value; }
+    }
+
+    public float CurrentSpeed
+    {
+        get { return currentSpeed; }
+        set { currentSpeed = value; }
     }
 
     public int PowerCost
@@ -204,5 +320,30 @@ public class Tower : MonoBehaviour
         // Display the explosion radius when selected
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+
+    IEnumerator ShowStatus()
+    {
+        while (true)
+        {
+            if(canDecript)
+            {
+                if(decryptEffect)
+                {
+                    decryptEffect.GetComponent<ParticleSystem>().Play();
+                }
+            }
+            yield return new WaitForSeconds(2);
+
+            if (canUnzip)
+            {
+                if(unzipEffect)
+                {
+                    unzipEffect.GetComponent<ParticleSystem>().Play();
+                }
+            }
+
+            yield return new WaitForSeconds(2);
+        }
     }
 }

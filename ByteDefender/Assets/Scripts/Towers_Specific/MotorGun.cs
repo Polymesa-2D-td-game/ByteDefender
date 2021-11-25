@@ -5,13 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Tower))]
 public class MotorGun : MonoBehaviour
 {
-    [SerializeField] GameObject projectilePrefab;
-    [SerializeField] Transform emmiter;
-    [SerializeField] int damage;
-    [SerializeField] float emmitForce;
-
     private Tower tower;
     private Spawner spawner;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -41,11 +38,11 @@ public class MotorGun : MonoBehaviour
         {
             if (tower.IsEnabled() && spawner.IsWaveRunning())
             {
-                GameObject projectile = Instantiate(projectilePrefab, emmiter.position, emmiter.rotation) as GameObject;
-                projectile.GetComponent<MotorGunProjectile>().Damage = damage;
-                projectile.GetComponent<MotorGunProjectile>().EmmitForce = emmitForce;
+                GameObject projectile = Instantiate(tower.SpawnObject, tower.SpawnPoint.position, tower.SpawnPoint.rotation) as GameObject;
+                projectile.GetComponent<MotorGunProjectile>().Damage = tower.CurrentIntPower;
+                projectile.GetComponent<MotorGunProjectile>().EmmitForce = tower.EmmitForce;
             }
-            yield return new WaitForSeconds(1 / tower.Speed);
+            yield return new WaitForSeconds(1 / tower.CurrentSpeed);
         }
     }
 

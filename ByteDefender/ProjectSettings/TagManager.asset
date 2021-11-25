@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Tower
   - PowerCoin_UI
+  - FxTemporaire
+  - Projectile
   layers:
   - Default
   - TransparentFX
