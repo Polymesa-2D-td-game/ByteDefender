@@ -49,6 +49,11 @@ public class Tower : MonoBehaviour
         target = FindTarget();
     }
 
+    public void BuffStats(float rangeIncrement, float speedIncrement)
+    {
+
+    }
+
     //Find all enemies in range
     private void DetectEnemies()
     {

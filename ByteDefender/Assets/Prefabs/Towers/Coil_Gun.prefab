@@ -119,8 +119,8 @@ MonoBehaviour:
   towerName: Coil Gun
   description: It is discharging frequently, to attack the selected enemy in range
   powerCost: 150
-  range: 4
-  speed: 8
+  range: 6
+  speed: 1.5
   rangeCircle: {fileID: 5503652821027666373}
   target: {fileID: 0}
   towerFocus: 0
@@ -136,10 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef23d3df092f9254b920f2fa09d9ee4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 959379826422679945, guid: 79add3466d8326841b6c2a16b92b2240,
+  projectilePrefab: {fileID: 4248239908192370838, guid: da4a690ce0b32c7409412f46291d8a68,
     type: 3}
   damage: 1
-  emmitForce: 20
+  emmitForce: 3.5
 --- !u!1 &5503652821027666372
 GameObject:
   m_ObjectHideFlags: 0

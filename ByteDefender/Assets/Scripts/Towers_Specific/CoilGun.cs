@@ -25,9 +25,9 @@ public class CoilGun : MonoBehaviour
             {
                 tower.LookAtTarget();
                 GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation) as GameObject;
-                projectile.GetComponent<Projectile>().Damage = damage;
-                projectile.GetComponent<Projectile>().EmmitForce = emmitForce;
-                projectile.GetComponent<Projectile>().Target = tower.GetTarget();
+                projectile.GetComponent<CoilGunProjectile>().Damage = damage;
+                projectile.GetComponent<CoilGunProjectile>().EmmitForce = emmitForce;
+                projectile.GetComponent<CoilGunProjectile>().Target = tower.GetTarget();
             }
             yield return new WaitForSeconds(1 / tower.Speed);
         }

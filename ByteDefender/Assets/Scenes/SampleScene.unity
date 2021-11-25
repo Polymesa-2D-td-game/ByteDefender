@@ -952,7 +952,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2321,7 +2321,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3089,13 +3089,17 @@ MonoBehaviour:
   - {fileID: 528565146403710573, guid: f8bb1eed8fd022141a50b8b72c38b484, type: 3}
   - {fileID: 5503652820605409265, guid: c14b89396517c1941b3735d5051ec999, type: 3}
   - {fileID: 7278723741076512526, guid: aa8c6b3567d0ce64996530f1daadd30e, type: 3}
+  - {fileID: 3671138166793880680, guid: 662088c3cb334b7478c0b75a1969bbcb, type: 3}
+  - {fileID: 8386170976945821848, guid: 3327d2b26dc181345a2bc1fd52ab80b6, type: 3}
+  - {fileID: 1086690930502074552, guid: ad2652a9ab575d9408fb1025b8e46d32, type: 3}
+  - {fileID: 3672488293930403336, guid: 2965e1d9c0213f34980b790517964e1c, type: 3}
   towerLayer:
     serializedVersion: 2
     m_Bits: 512
   eventSystem: {fileID: 600849975}
   sizeReductionOnPickUp: 0.8
   powerCoinsTxt: {fileID: 2069765228}
-  startingPowerCoins: 200
+  startingPowerCoins: 2000
   infoPanel: {fileID: 257542425}
   towerImage: {fileID: 1708994264}
   towerName: {fileID: 2100432890}
@@ -3323,7 +3327,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 733fd99c66ddaaf448115f7cbc450a40, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3605,7 +3609,7 @@ MonoBehaviour:
   - {fileID: 2035736238}
   minTimeBetweenInits: 0.3
   maxTimeBetweenInits: 1
-  speed: 5.3
+  speed: 3
   startingPower: 70
   waveToStartSpawningCrypted: 1
   chanceToSpawnCryptedIncrement: 0.1
@@ -3667,7 +3671,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: aefefed2b0d114941b1750f55b7e8cc2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4079,7 +4083,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: bf88fb9fa2d57cf409975230855e7016, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4947,7 +4951,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6106,7 +6110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a72a438e65d1a1a4dbf18fa2475c3388, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7372,7 +7376,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
