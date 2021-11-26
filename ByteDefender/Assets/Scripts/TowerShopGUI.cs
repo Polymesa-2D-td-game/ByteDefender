@@ -25,7 +25,9 @@ public class TowerShopGUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI towerName;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI pathName1;
+    [SerializeField] private TextMeshProUGUI pathCost1;
     [SerializeField] private TextMeshProUGUI pathName2;
+    [SerializeField] private TextMeshProUGUI pathCost2;
 
 
     //Private Variables
@@ -155,6 +157,10 @@ public class TowerShopGUI : MonoBehaviour
     //Change Tower Information Panel Visibility
     private void InfoPanelSetActive(bool status)
     {
+        if (status)
+        {
+            DisplayUpgradeCosts();
+        }
         infoPanel.SetActive(status);
     }
 
@@ -258,5 +264,30 @@ public class TowerShopGUI : MonoBehaviour
             return;
         }
         button.GetComponent<Animator>().Play("Selected");
+    }
+
+    public void Upgrade(int pathIndex)
+    {
+        if(infoTarget)
+        {
+            Upgrader upgrader = infoTarget.GetComponent<Upgrader>();
+            if(CanBuy(upgrader.UpgradeCost(pathIndex)))
+            {
+                upgrader.Upgrade(pathIndex);
+            }
+        }
+        DisplayUpgradeCosts();
+    }
+
+    private void DisplayUpgradeCosts()
+    {
+        if (infoTarget)
+        {
+            Upgrader upgrader = infoTarget.GetComponent<Upgrader>();
+            pathName1.text = upgrader.GetUpgradeName(0);
+            pathName2.text = upgrader.GetUpgradeName(1);
+            pathCost1.text = upgrader.UpgradeCost(0).ToString();
+            pathCost2.text = upgrader.UpgradeCost(1).ToString();
+        }
     }
 }

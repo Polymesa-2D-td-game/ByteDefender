@@ -31,7 +31,7 @@ public class ElectromagneticCannonProjectileAfter : MonoBehaviour
                 col.GetComponent<Enemy>().TakeDamage(Damage);
             }
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
 
 

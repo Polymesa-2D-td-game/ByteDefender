@@ -156,5 +156,13 @@ public class Spawner : MonoBehaviour
             target.canDecript = false;
             target.canUnzip = false;
         }
+        Decoder[] decoders = FindObjectsOfType<Decoder>();
+        if (decoders.Length > 0)
+        {
+            foreach (Decoder decoder in decoders)
+            {
+                decoder.BuffTowers();
+            }
+        }
     }
 }

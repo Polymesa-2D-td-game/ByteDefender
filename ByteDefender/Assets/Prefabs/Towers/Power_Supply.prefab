@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 3672488293930403337}
   - component: {fileID: 3672488293930403332}
   - component: {fileID: 7337913062217500355}
+  - component: {fileID: -3426784418127356021}
   m_Layer: 9
   m_Name: Power_Supply
   m_TagString: Tower
@@ -191,7 +192,11 @@ MonoBehaviour:
   speed: 0.5
   emmitForce: 5
   rangeCircle: {fileID: 3672488293890791548}
+  decryptEffect: {fileID: 0}
+  unzipEffect: {fileID: 0}
   currentPower: 0
+  canUnzip: 0
+  canDecript: 0
   target: {fileID: 0}
   towerFocus: 0
 --- !u!58 &3672488293930403332
@@ -225,3 +230,25 @@ MonoBehaviour:
   speedBuff: 1
   damageBuff: 1
   rangeBuff: 1
+--- !u!114 &-3426784418127356021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3672488293930403336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58839eab1a7c074439357ccea6a7eddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paths:
+  - upgrades:
+    - {fileID: 11400000, guid: 1df82e60ec8566c468aa9e06baffb3ae, type: 2}
+    - {fileID: 11400000, guid: 968b41361d6ee614b976cf8a94801074, type: 2}
+  - upgrades:
+    - {fileID: 11400000, guid: 03dda40123acdce419c9e4fdec268901, type: 2}
+    - {fileID: 11400000, guid: 740bdd88b9fa7ab4096f70cb9e3596f7, type: 2}
+  - upgrades:
+    - {fileID: 11400000, guid: 8bf5a9633868013409b1cdc62f5cfb13, type: 2}
+    - {fileID: 11400000, guid: 7de3946a1ba1a694ba92e3b9757fea40, type: 2}

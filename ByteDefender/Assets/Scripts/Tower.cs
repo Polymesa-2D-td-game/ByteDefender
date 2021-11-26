@@ -218,7 +218,7 @@ public class Tower : MonoBehaviour
     }
 
     //Update Towers Range Indicator
-    private void UpdateRangeIndicator()
+    public void UpdateRangeIndicator()
     {
         rangeCircle.transform.localScale = startingScale * range;
     }
