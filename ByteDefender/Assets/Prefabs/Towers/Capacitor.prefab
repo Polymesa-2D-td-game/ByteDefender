@@ -261,14 +261,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paths:
   - upgrades:
-    - {fileID: 11400000, guid: 1df82e60ec8566c468aa9e06baffb3ae, type: 2}
-    - {fileID: 11400000, guid: 968b41361d6ee614b976cf8a94801074, type: 2}
+    - {fileID: 11400000, guid: 903c73c5b54d65b4d80665b76d42baae, type: 2}
+    - {fileID: 11400000, guid: 0bd6886df237cc1409bb05d4bb70c827, type: 2}
   - upgrades:
-    - {fileID: 11400000, guid: 03dda40123acdce419c9e4fdec268901, type: 2}
-    - {fileID: 11400000, guid: 740bdd88b9fa7ab4096f70cb9e3596f7, type: 2}
+    - {fileID: 11400000, guid: dc854cf864ac48a49961b715a9b923af, type: 2}
+    - {fileID: 11400000, guid: 1131f94d044608249924858dcecb9463, type: 2}
   - upgrades:
-    - {fileID: 11400000, guid: 8bf5a9633868013409b1cdc62f5cfb13, type: 2}
-    - {fileID: 11400000, guid: 7de3946a1ba1a694ba92e3b9757fea40, type: 2}
+    - {fileID: 11400000, guid: 16b5530da7505cf44a1f031e75a0f9ec, type: 2}
+    - {fileID: 11400000, guid: 6e7be7d1eb62caa4ea330dfb709b1817, type: 2}
 --- !u!1001 &2481711208766010480
 PrefabInstance:
   m_ObjectHideFlags: 0

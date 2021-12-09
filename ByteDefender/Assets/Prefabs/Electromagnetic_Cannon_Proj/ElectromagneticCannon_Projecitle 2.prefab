@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5175772837782249153}
   - component: {fileID: 3094949824910277445}
   m_Layer: 0
-  m_Name: ElectromagneticCannon_Projecitle
+  m_Name: ElectromagneticCannon_Projecitle 2
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a511c0ccb822a7145bdd813e96585c4e, type: 3}
-  m_Color: {r: 0.02180491, g: 0.43772104, b: 0.9245283, a: 1}
+  m_Color: {r: 0.02352939, g: 0.9254902, b: 0.08024214, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2950e708b49831d41a1cfba4a8bb70c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  range: 0.7
 --- !u!95 &1537094218414629965
 Animator:
   serializedVersion: 3

@@ -18,6 +18,7 @@ public class TowerShopGUI : MonoBehaviour
     [Range(0.5f,0.95f)] [SerializeField] float sizeReductionOnPickUp = 0.8f;
     [Header("Energy")]
     [SerializeField] private TextMeshProUGUI powerCoinsTxt;
+    [SerializeField] private TextMeshProUGUI waveTxt;
     [SerializeField] private int startingPowerCoins = 50;
     [Header("Tower Info Panel")]
     [SerializeField] private GameObject infoPanel;
@@ -26,8 +27,10 @@ public class TowerShopGUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI pathName1;
     [SerializeField] private TextMeshProUGUI pathCost1;
+    [SerializeField] private TextMeshProUGUI pathDesc1;
     [SerializeField] private TextMeshProUGUI pathName2;
     [SerializeField] private TextMeshProUGUI pathCost2;
+    [SerializeField] private TextMeshProUGUI pathDesc2;
 
 
     //Private Variables
@@ -52,6 +55,11 @@ public class TowerShopGUI : MonoBehaviour
             target.GetComponent<Tower>().ChangeRangeVisibility(false);
             ReleaseTower();
         }
+    }
+
+    public void UpdateWaveText(int wave)
+    {
+        waveTxt.text = "Wave: " + wave.ToString();
     }
 
     //Updates the Information In Tower Info Panel
@@ -248,7 +256,7 @@ public class TowerShopGUI : MonoBehaviour
     {
         if(Time.timeScale == 1f)
         {
-            Time.timeScale = 2f;
+            Time.timeScale = 3f;
             return;
         }
         Time.timeScale = 1f;
@@ -268,7 +276,7 @@ public class TowerShopGUI : MonoBehaviour
 
     public void Upgrade(int pathIndex)
     {
-        if(infoTarget)
+        if (infoTarget)
         {
             Upgrader upgrader = infoTarget.GetComponent<Upgrader>();
             if(CanBuy(upgrader.UpgradeCost(pathIndex)))
@@ -279,7 +287,7 @@ public class TowerShopGUI : MonoBehaviour
         DisplayUpgradeCosts();
     }
 
-    private void DisplayUpgradeCosts()
+    public void DisplayUpgradeCosts()
     {
         if (infoTarget)
         {
@@ -288,6 +296,8 @@ public class TowerShopGUI : MonoBehaviour
             pathName2.text = upgrader.GetUpgradeName(1);
             pathCost1.text = upgrader.UpgradeCost(0).ToString();
             pathCost2.text = upgrader.UpgradeCost(1).ToString();
+            pathDesc1.text = upgrader.GetUpgradeDescription(0).ToString();
+            pathDesc2.text = upgrader.GetUpgradeDescription(1).ToString();
         }
     }
 }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d725bf8ec001c324ba5015a43618a220, type: 3}
+  m_Name: 2_2
+  m_EditorClassIdentifier: 
+  upgradeCost: 350
+  upgradeName: Power
+  description: Boosts nearby towers increasing their range and power
+  spriteUpgrade: {fileID: 0}
+  spawnObjectUpgrade: {fileID: 0}
+  powerUpgrade: 0.5
+  speedUpgrade: 0
+  rangeUpgrade: 0.5
+  emmitForceUpgrade: 0

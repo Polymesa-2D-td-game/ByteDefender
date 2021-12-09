@@ -27,7 +27,7 @@ public class ElectromagneticCannon : MonoBehaviour
                 projectile.GetComponent<ElectromagneticCannonProjectile>().Damage = tower.CurrentIntPower;
                 projectile.GetComponent<ElectromagneticCannonProjectile>().EmmitForce = tower.EmmitForce;
                 projectile.GetComponent<ElectromagneticCannonProjectile>().Target = tower.GetTarget();
-                projectile.GetComponent<ElectromagneticCannonProjectile>().Range = afterRange;
+                //projectile.GetComponent<ElectromagneticCannonProjectile>().range = afterRange;
                 projectile.GetComponent<ElectromagneticCannonProjectile>().afterHitAttack = afterProjectilePrefab;
             }
             yield return new WaitForSeconds(1 / tower.CurrentSpeed);

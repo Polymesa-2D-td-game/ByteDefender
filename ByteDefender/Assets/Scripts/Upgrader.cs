@@ -6,26 +6,45 @@ public class Upgrader : MonoBehaviour
 {
     [SerializeField] Path[] paths;
 
-    private int upgradeLevel = 0;
+    private int leftIndex = 0;
+    private int rightIndex = 0;
+
+    private int max;
 
     Tower tower;
-    // Start is called before the first frame update
     void Start()
     {
         tower = GetComponent<Tower>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        max = paths.Length;
     }
 
     public void Upgrade(int pathIndex)
     {
-        if (upgradeLevel < paths.Length)
+        switch (pathIndex)
         {
-            SimpleUpgrade upgrade = paths[upgradeLevel].upgrades[pathIndex];
+            case 0:
+                ApplyUpgrade(leftIndex, 0);
+                leftIndex++;
+                break;
+            case 1:
+                ApplyUpgrade(rightIndex, 1);
+                rightIndex++;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void ApplyUpgrade(int levelIndex, int pathIndex)
+    {
+        if (leftIndex == paths.Length || rightIndex == paths.Length)
+        {
+            max = paths.Length - 1;
+        }
+
+        if (levelIndex < max)
+        {
+            SimpleUpgrade upgrade = paths[levelIndex].upgrades[pathIndex];
             tower.Power += upgrade.powerUpgrade;
             tower.Speed += upgrade.speedUpgrade;
             tower.Range += upgrade.rangeUpgrade;
@@ -40,40 +59,74 @@ public class Upgrader : MonoBehaviour
             }
             tower.InitializeStats();
             tower.UpdateRangeIndicator();
-            upgradeLevel++;
         }
+        Debug.Log(levelIndex);
     }
 
     public int UpgradeCost(int pathIndex)
     {
-        if(upgradeLevel < paths.Length)
+        
+        if (pathIndex == 0)
         {
-            return paths[upgradeLevel].upgrades[pathIndex].upgradeCost;
+            if (leftIndex < max)
+            {
+                return paths[leftIndex].upgrades[pathIndex].upgradeCost;
+            }
+            return 0;
         }
-        return 0;
+        else
+        {
+            if (rightIndex < max)
+            {
+                return paths[rightIndex].upgrades[pathIndex].upgradeCost;
+            }
+            return 0;
+        }
     }
 
     public string GetUpgradeName(int pathIndex)
     {
-        if (upgradeLevel < paths.Length)
+        if (pathIndex == 0)
         {
-            return paths[upgradeLevel].upgrades[pathIndex].upgradeName;
+            if (leftIndex < max)
+            {
+                return paths[leftIndex].upgrades[pathIndex].upgradeName + " (" + (int)(leftIndex + 1) + ")";
+            }
+            return "FULL";
         }
-        return "FULL";
-            
+        else
+        {
+            if (rightIndex < max)
+            {
+                return paths[rightIndex].upgrades[pathIndex].upgradeName + " (" + (int)(rightIndex + 1) + ")";
+            }
+            return "FULL";
+        }
     }
+
     public string GetUpgradeDescription(int pathIndex)
     {
-        if (upgradeLevel < paths.Length)
+        if (pathIndex == 0)
         {
-            return paths[upgradeLevel].upgrades[pathIndex].description;
+            if (leftIndex < max)
+            {
+                return paths[leftIndex].upgrades[pathIndex].description;
+            }
+            return "FULL";
         }
-        return "FULL";
+        else
+        {
+            if (rightIndex < max)
+            {
+                return paths[rightIndex].upgrades[pathIndex].description;
+            }
+            return "FULL";
+        }
     }
-}
 
-[System.Serializable]
-public class Path
-{
-    public SimpleUpgrade[] upgrades;
+    [System.Serializable]
+    public class Path
+    {
+        public SimpleUpgrade[] upgrades;
+    }
 }

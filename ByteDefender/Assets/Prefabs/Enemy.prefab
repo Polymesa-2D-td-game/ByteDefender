@@ -432,7 +432,7 @@ MonoBehaviour:
   destroyEffect: {fileID: 1587135431266605860, guid: ed13b9422861844489783f43701b41cd,
     type: 3}
   spawnSpread: 0
-  coinsOnDeath: 5
+  coinsOnDeath: 2
   timeBetweenInits: 0
 --- !u!61 &-2715860775624152706
 BoxCollider2D:

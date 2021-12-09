@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d725bf8ec001c324ba5015a43618a220, type: 3}
+  m_Name: 3_1
+  m_EditorClassIdentifier: 
+  upgradeCost: 500
+  upgradeName: AC
+  description: Boost nearby towers icreasing their speed and emmit force
+  spriteUpgrade: {fileID: 21300000, guid: 36b4688770f51e447a957162e6a8631d, type: 3}
+  spawnObjectUpgrade: {fileID: 0}
+  powerUpgrade: 0
+  speedUpgrade: 0.5
+  rangeUpgrade: 0
+  emmitForceUpgrade: 0.5

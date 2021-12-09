@@ -10,7 +10,7 @@ public class ElectromagneticCannonProjectile : MonoBehaviour
     public GameObject Target { get; set; }
 
     public GameObject afterHitAttack { get; set; }
-    public float Range { get; set; }
+    public float range;
 
     private Vector2 dir;
     private void Start()
@@ -29,7 +29,7 @@ public class ElectromagneticCannonProjectile : MonoBehaviour
             collision.GetComponent<Enemy>().TakeDamage(Damage);
             GameObject afterHit = Instantiate(afterHitAttack, transform.position, transform.rotation);
             afterHit.GetComponent<ElectromagneticCannonProjectileAfter>().Damage = Damage;
-            afterHit.GetComponent<ElectromagneticCannonProjectileAfter>().Range = Range;
+            afterHit.GetComponent<ElectromagneticCannonProjectileAfter>().Range = range;
             Destroy(gameObject);
         }
     }

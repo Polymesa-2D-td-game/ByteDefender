@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     private float currentSpeed;
     private Transform[] path;
 
-    private bool canMove = false;
+    private bool canMove = true;
 
     public int EnemyType
     {

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d725bf8ec001c324ba5015a43618a220, type: 3}
   m_Name: 3_1
   m_EditorClassIdentifier: 
-  upgradeCost: 600
-  upgradeName: 3 Left
-  description: 
-  spriteUpgrade: {fileID: 0}
-  spawnObjectUpgrade: {fileID: 0}
-  powerUpgrade: 1
-  speedUpgrade: 1
-  rangeUpgrade: 1
-  emmitForceUpgrade: 1
+  upgradeCost: 450
+  upgradeName: High Voltage
+  description: Maximazies Power
+  spriteUpgrade: {fileID: 21300000, guid: e011dd1487d449b439216479c03c4b1d, type: 3}
+  spawnObjectUpgrade: {fileID: 4248239908192370838, guid: 811dea22c9a4b52448b338c91922d70f,
+    type: 3}
+  powerUpgrade: 2
+  speedUpgrade: 0
+  rangeUpgrade: 0
+  emmitForceUpgrade: 0
