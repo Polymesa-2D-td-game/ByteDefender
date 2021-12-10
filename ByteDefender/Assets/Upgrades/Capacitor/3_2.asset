@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeCost: 500
   upgradeName: Unstable Charge
   description: Maximizes Coin Value
-  spriteUpgrade: {fileID: 21300000, guid: d7ac23865ad6ec245965837ee227f8be, type: 3}
+  spriteUpgrade: {fileID: 21300000, guid: 2d45b20aa09d26c4f8f22004fcaabe97, type: 3}
   spawnObjectUpgrade: {fileID: 0}
   powerUpgrade: 1
   speedUpgrade: 0
