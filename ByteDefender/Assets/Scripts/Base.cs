@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Base : MonoBehaviour
 {
@@ -26,10 +27,16 @@ public class Base : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        healthText.text = currentHealth.ToString();
+        if(healthText)
+        {
+            healthText.text = currentHealth.ToString();
+        }
+        
         if(currentHealth <= 0)
         {
             Debug.Log("You Loose");
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Game_Over");
         }
     }
 }
