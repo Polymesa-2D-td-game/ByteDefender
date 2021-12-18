@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5448,7 +5448,7 @@ MonoBehaviour:
   sizeReductionOnPickUp: 0.8
   powerCoinsTxt: {fileID: 2069765228}
   waveTxt: {fileID: 1416583747}
-  startingPowerCoins: 20000
+  startingPowerCoins: 200
   infoPanel: {fileID: 257542425}
   towerImage: {fileID: 1708994264}
   towerName: {fileID: 2100432890}
