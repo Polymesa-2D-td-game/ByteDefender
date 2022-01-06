@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d725bf8ec001c324ba5015a43618a220, type: 3}
   m_Name: 1_2
   m_EditorClassIdentifier: 
-  upgradeCost: 100
-  upgradeName: Range
-  description: Increases Area Of Effect
-  spriteUpgrade: {fileID: 0}
+  upgradeCost: 500
+  upgradeName: Decompressor
+  description: Gives nearby towers the abillity to spot and attack Zipped Data Packages
+  spriteUpgrade: {fileID: 21300000, guid: 76076e076a566c94d8034f011d99f2a4, type: 3}
   spawnObjectUpgrade: {fileID: 0}
-  powerUpgrade: 0
+  powerUpgrade: 1
   speedUpgrade: 0
   rangeUpgrade: 0.5
   emmitForceUpgrade: 0

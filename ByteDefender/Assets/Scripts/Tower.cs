@@ -34,6 +34,7 @@ public class Tower : MonoBehaviour
     private Collider2D[] enemiesInRange = new Collider2D[1];
     [SerializeField] private GameObject target;
 
+    //Specifies the towers focus
     private enum Focus
     {
         First,
@@ -44,14 +45,17 @@ public class Tower : MonoBehaviour
 
     [SerializeField] private Focus towerFocus = Focus.First;
 
+    //Awake is called when the GameObject is enabled
     private void Awake()
     {
+        //Prepare range indicator and initialize stats
         startingScale = rangeCircle.transform.localScale;
         UpdateRangeIndicator();
         InitializeStats();
         
     }
 
+    //Debuff all towers
     public void DebuffAll()
     {
         canDecript = false;
@@ -94,10 +98,12 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Get tower target
         DetectEnemies();
         target = FindTarget();
     }
 
+    //Initialize Stats
     public void InitializeStats()
     {
         currentPower = power;
@@ -105,13 +111,19 @@ public class Tower : MonoBehaviour
         currentSpeed = speed;
     }
 
+    public void PlaySoundEffect()
+    {
+        GetComponent<AudioSource>().Play();
+    }
+
     //Find all enemies in range
     private void DetectEnemies()
     {
+        //Creates a check sphere around GameObject with a specified range that detects other gameobjects in it
         Collider2D[] checkSphere = Physics2D.OverlapCircleAll(transform.position, range, enemiesMask);
-        
+        //Creates a list of enemies in range
         List<Collider2D> availableEnemies = new List<Collider2D>();
-
+        //Get enemies that tower can detect
         foreach(Collider2D col in checkSphere)
         {
             Enemy enemy = col.GetComponent<Enemy>();
@@ -179,26 +191,31 @@ public class Tower : MonoBehaviour
             float min = Mathf.Infinity;
             float max = Mathf.NegativeInfinity;
             int maxHitPoints = -1;
+            //Loop through all enemies in range
             for (int i = 0; i < enemiesInRange.Length; i++)
             {
+                //Get closest enemy
                 float distanceFromBase = Vector2.Distance(FindObjectOfType<Spawner>().transform.position, enemiesInRange[i].transform.position);
                 if (distanceFromBase < min)
                 {
                     min = distanceFromBase;
                     last = enemiesInRange[i].gameObject;
                 }
+                //Get furtherst enemy
                 if (distanceFromBase > max)
                 {
                     max = distanceFromBase;
                     first = enemiesInRange[i].gameObject;
 
                 }
+                //Get Strongest enemy
                 if (maxHitPoints < enemiesInRange[i].GetComponent<Enemy>().HitPoints)
                 {
                     maxHitPoints = enemiesInRange[i].GetComponent<Enemy>().HitPoints;
                     strongest = enemiesInRange[i].gameObject;
                 }
             }
+            //Set tower focus
             switch (towerFocus)
             {
                 case Focus.First:
@@ -214,6 +231,7 @@ public class Tower : MonoBehaviour
                     break;
             }
         }
+        //Return target
         return currentTarget;
     }
 
@@ -314,7 +332,7 @@ public class Tower : MonoBehaviour
         set { description = value; }
     }
 
-
+    //Editor only function to indicate towers range
     void OnDrawGizmosSelected()
     {
         // Display the explosion radius when selected
@@ -322,6 +340,7 @@ public class Tower : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, range);
     }
 
+    //Tower animations triggers
     IEnumerator ShowStatus()
     {
         while (true)

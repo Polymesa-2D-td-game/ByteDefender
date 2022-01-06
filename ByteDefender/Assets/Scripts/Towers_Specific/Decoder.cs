@@ -32,6 +32,14 @@ public class Decoder : MonoBehaviour
 
     public void BuffTowers()
     {
+        if(tower.Speed == 1)
+        {
+            canDecrypt = true;
+        }
+        if(tower.Power == 1)
+        {
+            canUnzip = true;
+        }
         Tower[] towersToBuff = GetNearbyTargets();
         if(towersToBuff.Length > 0)
         {

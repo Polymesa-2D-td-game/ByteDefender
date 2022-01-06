@@ -17,16 +17,14 @@ public class Buffable : MonoBehaviour
     private float speedBuff = 0f;
     private float rangeBuff = 0f;
 
-
+    //Awake is called when the GameObject activates
     private void Awake()
     {
         tower = GetComponent<Tower>();
         spawner = FindObjectOfType<Spawner>();
     }
-    private void Start()
-    {
 
-    }
+    //Buff nearby towers
     public void Buff(float rangeBuff, float speedBuff, float powerBuff)
     {
         powerBuff = powerBuff * powerBuffModifier;
@@ -38,11 +36,13 @@ public class Buffable : MonoBehaviour
         tower.CurrentRange = tower.Range + rangeBuff;
     }
 
+    //Play buff animation
     public void BuffAnimation()
     {
         buffEffect.GetComponent<ParticleSystem>().Play();
     }
 
+    //Debuff all towers
     public void Debuff()
     {
         tower = GetComponent<Tower>();

@@ -17,15 +17,18 @@ public class PowerCoin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Move towards UI Coin Indicator
         transform.position = Vector3.Lerp(transform.position, GetPowerCoinUIPos(), travelSpeed * Time.deltaTime);
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1f, 1f, 1f), travelSpeed * Time.deltaTime);
-        if(Vector3.Distance(transform.position, GetPowerCoinUIPos()) < 0.1f)
+        //Destroy when reaches destination
+        if (Vector3.Distance(transform.position, GetPowerCoinUIPos()) < 0.1f)
         {
             FindObjectOfType<TowerShopGUI>().AddCoins(Value);
             Destroy(gameObject);
         }
     }
 
+    //Get UI Element position to world space
     private Vector3 GetPowerCoinUIPos()
     {
         GameObject powerCoinUI = GameObject.FindGameObjectWithTag(powerCoinUITag);

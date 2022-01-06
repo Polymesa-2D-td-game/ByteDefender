@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DestroyBullets : MonoBehaviour
 {
+    //Destroy projectiles that collide with wall
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Projectile"))
@@ -12,6 +13,7 @@ public class DestroyBullets : MonoBehaviour
         }
     }
 
+    //Delete all active projectiles
     public void DeleteAll()
     {
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");

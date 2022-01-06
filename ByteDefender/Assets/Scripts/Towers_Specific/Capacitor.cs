@@ -6,7 +6,6 @@ using UnityEngine;
 public class Capacitor : MonoBehaviour
 {
     private Tower tower;
-    // Start is called before the first frame update
 
     private void Awake()
     {
@@ -14,12 +13,7 @@ public class Capacitor : MonoBehaviour
         StartCoroutine(SpawnCoins());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    //Spawn coins frequently based on speed
     IEnumerator SpawnCoins()
     {
         while(true)
@@ -27,11 +21,13 @@ public class Capacitor : MonoBehaviour
             if(FindObjectOfType<Spawner>().IsWaveRunning() && tower.IsEnabled())
             {
                 CreateCoin();
+                tower.PlaySoundEffect();
             }
             yield return new WaitForSeconds(1/tower.CurrentSpeed);
         }
     }
 
+    //Create coin at a random position close to its range
     private void CreateCoin()
     {
         float range = tower.CurrentRange;

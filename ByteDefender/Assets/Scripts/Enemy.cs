@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject destroyEffect;
     [SerializeField] float spawnSpread = 0.3f;
     [SerializeField] private int coinsOnDeath = 5;
+    [SerializeField] AudioSource damageSource;
 
     [SerializeField] [Range(0f, 1f)] private float timeBetweenInits;
 
@@ -54,7 +55,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private int dirIndex = 0;
+    public int dirIndex = 0;
     private int initHitPoints;
     private int orderInLayer = 2;
 
@@ -67,6 +68,7 @@ public class Enemy : MonoBehaviour
         FormatType();
     }
 
+    //Update enemy stats
     public void UpdateStats()
     {
         hitText.text = hitPoints.ToString();
@@ -76,6 +78,7 @@ public class Enemy : MonoBehaviour
     }
     
 
+    //Set enemy sorting layer
     public void SetSortingLayer(int order)
     {
         GetComponent<SpriteRenderer>().sortingOrder = order - 1;
@@ -120,7 +123,13 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    FindObjectOfType<Base>().TakeDamage(hitPoints);
+                    //If they reach last path point deal damage to base
+                    Base playerBase = FindObjectOfType<Base>();
+                    if(playerBase)
+                    {
+                        playerBase.TakeDamage(hitPoints);
+                    }
+
                     Destroy(gameObject);
                 }
             }
@@ -133,9 +142,11 @@ public class Enemy : MonoBehaviour
         canMove = true;
     }
 
+    //Take damage (called when a projectile hits the enemy)
     public void TakeDamage(int damage)
     {
         hitPoints -= damage;
+        FindObjectOfType<SpawnerV2>().GetComponent<AudioSource>().Play();
         hitText.text = hitPoints.ToString();
         if (hitPoints <= 0)
         {
@@ -150,6 +161,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    //Take Slow and play the effect for the specified duration
     IEnumerator TakeSlow(float slowRatio, float duration)
     {
         transform.Find("Slow_Effect").GetComponent<ParticleSystem>().Play();
@@ -159,6 +171,7 @@ public class Enemy : MonoBehaviour
         transform.Find("Slow_Effect").GetComponent<ParticleSystem>().Stop();
     }
 
+    //Begin take slow coroutine
     public void SlowEnemy(float slowRatio, float duration)
     {
         StartCoroutine(TakeSlow(slowRatio, duration));
@@ -176,43 +189,35 @@ public class Enemy : MonoBehaviour
         StartCoroutine(TakeStun(duration));
     }
 
+    //How zipped packages should behave on death
     private void ZipBehaviour()
     {
+        //Create an instance of the prefab
         GameObject enemyPrefab = this.gameObject;
+        //Create an empty enemies list
         List<GameObject> enemies = new List<GameObject>();
-        Vector2 dir = transform.position - path[dirIndex].position;
-        dir = dir.normalized;
-        int power = initHitPoints;
-        int enemiesToSpawn = Random.Range(4, initHitPoints);
-        power -= enemiesToSpawn;
+        //Calculate power and enemies to spawn
+        int power = initHitPoints/2;
+        int enemiesToSpawn = Random.Range(1, power);
 
+        //Create and Initialize all enemies
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            float randomSpread = Random.Range(-1f, 1f) * spawnSpread;
-            Vector2 randomPos = transform.position + new Vector3(randomSpread, randomSpread, 0);
+            //Calculate random spread and position
+            float randomSpread = Random.Range(-1, 1f) * spawnSpread;
+            int randomIndex = Random.Range(Mathf.Clamp(dirIndex-1, 0, path.Length-1), Mathf.Clamp(dirIndex + 1, 0, path.Length - 1));
+            //Create a new enemy prefab in the random position
+            Vector2 randomPos = path[randomIndex].position + new Vector3(randomSpread, randomSpread, 0f);
             GameObject enemy = Instantiate(enemyPrefab, randomPos, transform.rotation) as GameObject;
+            //Initialize enemys stats
+            enemy.GetComponent<Enemy>().dirIndex = dirIndex;
             enemy.GetComponent<Enemy>().SetSortingLayer(orderInLayer);
             orderInLayer -= 2;
             enemy.GetComponent<Enemy>().HitPoints++;
             enemy.GetComponent<Enemy>().Speed = speed;
             enemy.GetComponent<Enemy>().Path = path;
             enemy.GetComponent<Enemy>().UpdateStats();
-            enemies.Add(enemy);
-        }
-
-        power -= enemiesToSpawn;
-
-        while (power > 0)
-        {
-            int index = Random.Range(0, enemies.Count);
-            enemies[index].GetComponent<Enemy>().HitPoints++;
-            power -= 1;
-        }
-
-        foreach (GameObject enemy in enemies)
-        {
             enemy.GetComponent<Enemy>().StartMoving();
         }
     }
-
 }

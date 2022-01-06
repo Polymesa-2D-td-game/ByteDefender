@@ -21,6 +21,7 @@ public class CoilGun : MonoBehaviour
             {
                 tower.LookAtTarget();
                 GameObject projectile = Instantiate(tower.SpawnObject, tower.SpawnPoint.position, tower.SpawnPoint.rotation) as GameObject;
+                tower.PlaySoundEffect();
                 projectile.GetComponent<CoilGunProjectile>().Damage = tower.CurrentIntPower;
                 projectile.GetComponent<CoilGunProjectile>().EmmitForce = tower.EmmitForce;
                 projectile.GetComponent<CoilGunProjectile>().Target = tower.GetTarget();

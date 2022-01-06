@@ -24,6 +24,7 @@ public class ElectromagneticCannon : MonoBehaviour
             {
                 tower.LookAtTarget();
                 GameObject projectile = Instantiate(tower.SpawnObject, tower.SpawnPoint.position, tower.SpawnPoint.rotation) as GameObject;
+                tower.PlaySoundEffect();
                 projectile.GetComponent<ElectromagneticCannonProjectile>().Damage = tower.CurrentIntPower;
                 projectile.GetComponent<ElectromagneticCannonProjectile>().EmmitForce = tower.EmmitForce;
                 projectile.GetComponent<ElectromagneticCannonProjectile>().Target = tower.GetTarget();

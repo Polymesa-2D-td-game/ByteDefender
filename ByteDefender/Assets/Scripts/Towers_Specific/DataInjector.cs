@@ -63,6 +63,7 @@ public class DataInjector : MonoBehaviour
                 Vector3 position = waypoints[i].position + new Vector3(randomSeedX, randomSeedY);
                 target = position;
                 GameObject projectile = Instantiate(tower.SpawnObject, tower.SpawnPoint.position , transform.rotation) as GameObject;
+                tower.PlaySoundEffect();
                 projectile.GetComponent<DataInjectorProjectile>().Target = position;
                 projectile.GetComponent<DataInjectorProjectile>().EmmitForce = 8f;
                 projectile.GetComponent<DataInjectorProjectile>().Damage = tower.CurrentIntPower;

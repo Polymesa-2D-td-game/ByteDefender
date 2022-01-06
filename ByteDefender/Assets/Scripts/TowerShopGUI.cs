@@ -31,12 +31,20 @@ public class TowerShopGUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI pathName2;
     [SerializeField] private TextMeshProUGUI pathCost2;
     [SerializeField] private TextMeshProUGUI pathDesc2;
+    [Header("Info Show Panel")]
+    [SerializeField] private Image infoTowerImage;
+    [SerializeField] private TextMeshProUGUI infoTowerName;
+    [SerializeField] private TextMeshProUGUI infoDescription;
+    [SerializeField] private GameObject infoPref;
+    [Header("Options")]
+    [SerializeField] private GameObject optionsPanel;
 
 
     //Private Variables
     private GameObject target = null;
     [SerializeField] private GameObject infoTarget = null;
     private int currentPowerCoins = 0;
+    private float currentTimeScale = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +65,20 @@ public class TowerShopGUI : MonoBehaviour
         }
     }
 
+    //Opens or closes options panel
+    public void ToggleOptions()
+    {
+        if(optionsPanel.active)
+        {
+            optionsPanel.SetActive(false);
+            Time.timeScale = currentTimeScale;
+        }
+        else
+        {
+            optionsPanel.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
     public void UpdateWaveText(int wave)
     {
         waveTxt.text = "Wave: " + wave.ToString();
@@ -71,6 +93,42 @@ public class TowerShopGUI : MonoBehaviour
             description.text = infoTarget.GetComponent<Tower>().Description;
             towerImage.sprite = infoTarget.GetComponent<SpriteRenderer>().sprite;
         }
+    }
+
+    public void DisplayInfo(Tower tower)
+    {
+        infoPref.SetActive(true);
+        infoDescription.text = tower.Description;
+        infoTowerName.text = tower.TowerName;
+        infoTowerImage.sprite = tower.GetComponent<SpriteRenderer>().sprite;
+    }
+
+    //Called when a tower is moved on top of the trash can
+    public void DestroyTowerBeforePlaced()
+    {
+        if(target)
+        {
+            AddCoins(target.GetComponent<Tower>().PowerCost);
+            Destroy(target);
+            target = null;
+        }
+    }
+    //Called when a tower is selected and the trash can button is pressed
+    public void DestroyTower()
+    {
+        if (infoTarget)
+        {
+            AddCoins(infoTarget.GetComponent<Tower>().PowerCost /2);
+            Destroy(infoTarget);
+            InfoPanelSetActive(false);
+            infoTarget = null;
+        }
+    }
+
+    //Hide info panel
+    public void HideInfo()
+    {
+        infoPref.SetActive(false);
     }
 
     //Changes The Focus 0:First 1:Last 2:Strongest
@@ -231,9 +289,12 @@ public class TowerShopGUI : MonoBehaviour
     //Place Tower
     private void ReleaseTower()
     {
+        //Cast a ray
         RaycastHit2D hit = Physics2D.Raycast(GetMousePosition(), Vector3.forward); 
+        //if ray hits a collider and its not over a ui element
         if(!hit.collider && !IsPointerOverUIElement())
         {
+            //Place tower
             target.GetComponent<CircleCollider2D>().enabled = true;
             target.GetComponent<Tower>().DebuffAll();
             ChangeTowerSize(target, 1);
@@ -256,10 +317,12 @@ public class TowerShopGUI : MonoBehaviour
     {
         if(Time.timeScale == 1f)
         {
-            Time.timeScale = 3f;
+            Time.timeScale = 2f;
+            currentTimeScale = 2f;
             return;
         }
         Time.timeScale = 1f;
+        currentTimeScale = 1f;
     }
 
     //Trigger Button Animation
@@ -274,6 +337,7 @@ public class TowerShopGUI : MonoBehaviour
         button.GetComponent<Animator>().Play("Selected");
     }
 
+    //Upgrade tower (path index left - right upgrade)
     public void Upgrade(int pathIndex)
     {
         if (infoTarget)
@@ -287,6 +351,7 @@ public class TowerShopGUI : MonoBehaviour
         DisplayUpgradeCosts();
     }
 
+    //Update upgrade panel info
     public void DisplayUpgradeCosts()
     {
         if (infoTarget)
@@ -300,4 +365,5 @@ public class TowerShopGUI : MonoBehaviour
             pathDesc2.text = upgrader.GetUpgradeDescription(1).ToString();
         }
     }
+
 }

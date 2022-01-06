@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName="Upgrade",menuName ="Upgrade",order =0)]
+//Saves all upgrade data
 public class SimpleUpgrade : ScriptableObject
 {
     [Header("Misc")]
@@ -17,7 +18,4 @@ public class SimpleUpgrade : ScriptableObject
     public float speedUpgrade;
     public float rangeUpgrade;
     public float emmitForceUpgrade;
-
-
-    
 }

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Main_Menu : MonoBehaviour
 {
+    [SerializeField] GameObject optionsPanel;
     SpawnerV2 spawner;
     // Start is called before the first frame update
     void Start()
@@ -29,5 +30,18 @@ public class Main_Menu : MonoBehaviour
     public void LoadScene(int index)
     {
         SceneManager.LoadScene(index);
+    }
+
+
+    public void ToggleOptions()
+    {
+        if (optionsPanel.active)
+        {
+            optionsPanel.SetActive(false);
+        }
+        else
+        {
+            optionsPanel.SetActive(true);
+        }
     }
 }

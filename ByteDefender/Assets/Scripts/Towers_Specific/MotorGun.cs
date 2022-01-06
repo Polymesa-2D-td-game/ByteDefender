@@ -39,6 +39,7 @@ public class MotorGun : MonoBehaviour
             if (tower.IsEnabled() && spawner.IsWaveRunning())
             {
                 GameObject projectile = Instantiate(tower.SpawnObject, tower.SpawnPoint.position, tower.SpawnPoint.rotation) as GameObject;
+                tower.PlaySoundEffect();
                 projectile.GetComponent<MotorGunProjectile>().Damage = tower.CurrentIntPower;
                 projectile.GetComponent<MotorGunProjectile>().EmmitForce = tower.EmmitForce;
             }

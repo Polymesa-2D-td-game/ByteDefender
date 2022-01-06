@@ -49,6 +49,13 @@ public class UpgraderV2 : MonoBehaviour
             {
                 tower.SpawnObject = upgrade.spawnObjectUpgrade;
             }
+            if(levelIndex == 1)
+            {
+                Debug.Log("<OGM");
+                paths[paths.Length -1].upgrades[0].description = "";
+                paths[paths.Length -1].upgrades[0].name = "";
+                paths[paths.Length - 1].upgrades[0].upgradeCost = 0;
+            }
             tower.InitializeStats();
             tower.UpdateRangeIndicator();
         }

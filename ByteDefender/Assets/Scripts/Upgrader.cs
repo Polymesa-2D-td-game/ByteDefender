@@ -18,6 +18,7 @@ public class Upgrader : MonoBehaviour
         max = paths.Length;
     }
 
+    //Upgrade (left - right path)
     public void Upgrade(int pathIndex)
     {
         switch (pathIndex)
@@ -37,32 +38,44 @@ public class Upgrader : MonoBehaviour
 
     private void ApplyUpgrade(int levelIndex, int pathIndex)
     {
+        //Check if max
         if (leftIndex == paths.Length || rightIndex == paths.Length)
         {
             max = paths.Length - 1;
         }
 
+        //If level index is not max
         if (levelIndex < max)
         {
+            //Perform selected Upgrade
             SimpleUpgrade upgrade = paths[levelIndex].upgrades[pathIndex];
             tower.Power += upgrade.powerUpgrade;
             tower.Speed += upgrade.speedUpgrade;
             tower.Range += upgrade.rangeUpgrade;
             tower.EmmitForce += upgrade.emmitForceUpgrade;
+            //If upgrade has a new sprite update it
             if (upgrade.spriteUpgrade)
             {
                 tower.GetComponent<SpriteRenderer>().sprite = upgrade.spriteUpgrade;
             }
+            //If upgrade has a new projectile update it
             if (upgrade.spawnObjectUpgrade)
             {
                 tower.SpawnObject = upgrade.spawnObjectUpgrade;
             }
+            //if one path is reached max. Reduce max
+            if(levelIndex == max-1)
+            {
+                max = max - 1;
+            }
+            //Initialize stats and update range indicator
             tower.InitializeStats();
             tower.UpdateRangeIndicator();
         }
         Debug.Log(levelIndex);
     }
 
+    //Return the cost of the selected upgrade
     public int UpgradeCost(int pathIndex)
     {
         
@@ -84,6 +97,7 @@ public class Upgrader : MonoBehaviour
         }
     }
 
+    //Return the name of the selected upgrade
     public string GetUpgradeName(int pathIndex)
     {
         if (pathIndex == 0)
@@ -104,6 +118,7 @@ public class Upgrader : MonoBehaviour
         }
     }
 
+    //Return the descruption of the selected upgrade
     public string GetUpgradeDescription(int pathIndex)
     {
         if (pathIndex == 0)
@@ -124,6 +139,7 @@ public class Upgrader : MonoBehaviour
         }
     }
 
+    //A class that stores each upgrade for all paths
     [System.Serializable]
     public class Path
     {

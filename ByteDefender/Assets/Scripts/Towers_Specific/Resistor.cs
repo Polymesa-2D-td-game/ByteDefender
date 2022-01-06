@@ -23,6 +23,7 @@ public class Resistor : MonoBehaviour
             {
                 foreach (GameObject enemy in tower.GetTargetsInRange())
                 {
+                    tower.PlaySoundEffect();
                     enemy.GetComponent<Enemy>().SlowEnemy(tower.CurrentPower, tower.EmmitForce);
                 }
             }

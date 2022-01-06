@@ -50,6 +50,7 @@ public class SpawnerV2 : MonoBehaviour
 
     private void Start()
     {
+        //Initialize spawner
         wavePowerRatio = initialPowerRatio;
         timeBetweenSpawns = initTimeBetweenSpawns;
         chanceToSpawnCrypted = initChanceToSpawnCrypted;
@@ -63,12 +64,15 @@ public class SpawnerV2 : MonoBehaviour
         return enemies.Length > 0;
     }
 
+    //Reward player when wave ends
     IEnumerator RewardPlayer()
     {
         while(IsWaveRunning())
         {
             yield return new WaitForSeconds(1f);
         }
+        //When wave ends
+        PrepareForNextWave();
         FindObjectOfType<TowerShopGUI>().AddCoins(coinsIncrement * waveCount);
         FindObjectOfType<TowerShopGUI>().UpdateWaveText(waveCount);
     }
@@ -160,13 +164,16 @@ public class SpawnerV2 : MonoBehaviour
         return enemies;
     }
 
+    //Start spawning the next wave
     IEnumerator SpawnWave(Enemy[] enemies)
     {
         PrepareForNextWave();
         foreach(Enemy enemy in enemies)
         {
+            //Create enemy
             GameObject enemyObject = Instantiate(enemyPrefab, transform);
             Enemy enemyComponent = enemyObject.GetComponent<Enemy>();
+            //Initialize enemys stats
             enemyComponent.HitPoints = enemy.HitPoints;
             enemyComponent.Speed = enemy.Speed;
             enemyComponent.Path = enemy.Path;
@@ -175,12 +182,14 @@ public class SpawnerV2 : MonoBehaviour
         }
     }
 
+    //Destroy all projectiles at the start and end of each wave
     private void PrepareForNextWave()
     {
         FindObjectOfType<DestroyBullets>().DeleteAll();
         DebuffAll();
     }
 
+    //Debuff All towers
     private static void DebuffAll()
     {
         Buffable[] buffableTowers = FindObjectsOfType<Buffable>();

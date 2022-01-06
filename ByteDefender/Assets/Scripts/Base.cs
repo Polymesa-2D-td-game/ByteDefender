@@ -18,25 +18,33 @@ public class Base : MonoBehaviour
         healthText.text = currentHealth.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //Damages base (called when enemy reaches last path point)
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         if(healthText)
         {
+            GetComponent<AudioSource>().Play();
             healthText.text = currentHealth.ToString();
         }
         
+        //If health is less than 0, show gameover
         if(currentHealth <= 0)
         {
+            SaveScore();
             Debug.Log("You Loose");
             Time.timeScale = 1f;
             SceneManager.LoadScene("Game_Over");
         }
+    }
+
+    //Saves score when player looses
+    private void SaveScore()
+    {
+        int wave = FindObjectOfType<SpawnerV2>().GetWaveCount();
+        string sceneName = SceneManager.GetActiveScene().name;
+        //Saves a variable localy that stores the highscore of the current scene
+        if(wave > PlayerPrefs.GetInt(sceneName))
+            PlayerPrefs.SetInt(sceneName, wave);
     }
 }
