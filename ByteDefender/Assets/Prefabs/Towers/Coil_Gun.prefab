@@ -123,7 +123,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   towerName: Coil Gun
-  description: It is discharging frequently, to attack the selected enemy in range
+  description: It discharges electic balls, that follows the nearest enemy.
   powerCost: 120
   spawnObject: {fileID: 4248239908192370838, guid: da4a690ce0b32c7409412f46291d8a68,
     type: 3}

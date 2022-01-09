@@ -106,7 +106,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   towerName: Motor Gun
-  description: It is discharging frequently, to attack the selected enemy in range
+  description: It has infinite range. Attacks rapidly towards mouse position.
   powerCost: 450
   spawnObject: {fileID: 2550069673387573466, guid: e9ca8ceb9f5afd34d95e63f6e2ab0dd6,
     type: 3}

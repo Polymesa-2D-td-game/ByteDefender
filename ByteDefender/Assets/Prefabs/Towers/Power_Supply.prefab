@@ -184,7 +184,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   towerName: Power Supply
-  description: It is discharging frequently, to attack the selected enemy in range
+  description: Boosts the power of nearby towers
   powerCost: 900
   spawnObject: {fileID: 0}
   spawnPoint: {fileID: 0}

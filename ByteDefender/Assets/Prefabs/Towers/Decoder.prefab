@@ -105,7 +105,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   towerName: Magnet Gun
-  description: It is discharging frequently, to attack the selected enemy in range
+  description: Can be upgraded once. To detect crypted or compressed bits
   powerCost: 300
   spawnObject: {fileID: 0}
   spawnPoint: {fileID: 0}

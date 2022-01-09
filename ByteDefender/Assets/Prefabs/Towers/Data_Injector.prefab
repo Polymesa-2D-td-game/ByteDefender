@@ -106,7 +106,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   towerName: Magnet Gun
-  description: It is discharging frequently, to attack the selected enemy in range
+  description: It creates corrupted data to destroy incoming data packages
   powerCost: 260
   spawnObject: {fileID: 959379826422679945, guid: 79add3466d8326841b6c2a16b92b2240,
     type: 3}

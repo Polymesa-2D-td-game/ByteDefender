@@ -139,16 +139,22 @@ public class SpawnerV2 : MonoBehaviour
         //Calculate Crypted and Zipped Chances
         for (int i = 0; i < enemies.Length; i++)
         {
-            float cryptedChance = Random.Range(0f, 1f);
-            if(chanceToSpawnCrypted > cryptedChance)
+            if(waveCount >= cryptedApealWave)
             {
-                enemies[i].EnemyType = 1;
+                float cryptedChance = Random.Range(0f, 1f);
+                if (chanceToSpawnCrypted > cryptedChance)
+                {
+                    enemies[i].EnemyType = 1;
+                }
             }
-
-            float zippedChance = Random.Range(0f, 1f);
-            if (chanceToSpawnZipped > zippedChance)
+            
+            if(waveCount >= zippedApealWave)
             {
-                enemies[i].EnemyType = 2;
+                float zippedChance = Random.Range(0f, 1f);
+                if (chanceToSpawnZipped > zippedChance)
+                {
+                    enemies[i].EnemyType = 2;
+                }
             }
         }
 

@@ -138,7 +138,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   towerName: Electro Cannon
-  description: It is discharging frequently, to attack the selected enemy in range
+  description: It is discharging frequently, to attack the selected enemy in range.
+    Bullets explode on contact damaging nearby enemies
   powerCost: 600
   spawnObject: {fileID: 959379826422679945, guid: 3949abc3ed730cd4ba8c015ad36e2267,
     type: 3}
